@@ -19,6 +19,6 @@ jobs:
           key_id: 'fnaufhaihfaifh'
           application_key: 'djsaifhasufgsaf'
           bucket: 'bucket-name'
-          file_input: '/home/user/my/file/path or C:\my\file\path'
+          file_input: '/home/user/my/file/path.ext or C:\my\file\path.ext'
           file_output: 'some_folder_inside_root/some_subfolder/final_folder/file.ext'
 ```
