@@ -1,6 +1,6 @@
 # Backblaze B2 upload action
 
-GitHub Action for upload file to Backblaze B2
+GitHub Action to upload files or folders to Backblaze B2
 
 `file_input` can be a directory, the files gonna be uploaded recursively.
 
