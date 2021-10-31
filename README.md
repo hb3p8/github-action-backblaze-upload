@@ -2,7 +2,7 @@
 
 GitHub Action to upload files or folders to Backblaze B2
 
-`file_input` can be a directory, the files gonna be uploaded recursively.
+`file_input` can be a directory, all files gonna be uploaded recursively and use the `file_output` as relative path.
 
 If `file_input` is a directory, make the `file_output` a directory too
 
