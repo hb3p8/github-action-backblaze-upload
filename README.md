@@ -1,6 +1,4 @@
 # Backblaze B2 upload action
-[![Build Container Image](https://github.com/sksat/b2-upload-action/actions/workflows/build-image.yml/badge.svg)](https://github.com/sksat/b2-upload-action/actions/workflows/build-image.yml)
-[![test Action](https://github.com/sksat/b2-upload-action/actions/workflows/test-action.yml/badge.svg)](https://github.com/sksat/b2-upload-action/actions/workflows/test-action.yml)
 
 GitHub Action for upload file to Backblaze B2
 
