@@ -1,10 +1,8 @@
 # Backblaze B2 upload action
-[![Build Container Image](https://github.com/sksat/b2-upload-action/actions/workflows/build-image.yml/badge.svg)](https://github.com/sksat/b2-upload-action/actions/workflows/build-image.yml)
-[![test Action](https://github.com/sksat/b2-upload-action/actions/workflows/test-action.yml/badge.svg)](https://github.com/sksat/b2-upload-action/actions/workflows/test-action.yml)
 
-GitHub Action for upload file to Backblaze B2
+GitHub Action to upload files or folders to Backblaze B2
 
-`file_input` can be a directory, the files gonna be uploaded recursively.
+`file_input` can be a directory, all files gonna be uploaded recursively and use the `file_output` as relative path.
 
 If `file_input` is a directory, make the `file_output` a directory too
 
@@ -21,6 +19,6 @@ jobs:
           key_id: 'fnaufhaihfaifh'
           application_key: 'djsaifhasufgsaf'
           bucket: 'bucket-name'
-          file_input: '/home/user/my/file/path or C:\my\file\path'
+          file_input: '/home/user/my/file/path.ext or C:\my\file\path.ext'
           file_output: 'some_folder_inside_root/some_subfolder/final_folder/file.ext'
 ```
