@@ -44,17 +44,18 @@ const encodeB2PathComponent = (raw) => {
     .join("");
 };
 
-const fetchOkJson = (url, { body, ...opts }) =>
+const fetchOkJson = (url, { body, ...opts }, onFail) =>
   new Promise((resolve, reject) => {
     const req = https.request(url, opts);
-    req.on("error", reject);
+    req.on("error", () => {
+      onFail();
+      return reject
+    });
+
     req.on("response", (res) => {
       if (res.statusCode < 200 || res.statusCode > 299) {
-        return reject(
-          new Error(
-            `Request to ${url} failed with status ${res.statusCode}`
-          )
-        );
+        if((res.statusCode >= 500 && res.statusCode <= 599) || res.statusCode == 408) onFail();
+        return reject(new Error(`Request to ${url} failed with status ${res.statusCode}`));
       }
       const chunks = [];
       res.on("error", reject);
@@ -85,7 +86,7 @@ const walkDir = async directory => {
   return fileList;
 }
 
-const getUploadPath = async (bucket, auth) => {
+const authorizeUpload = async (bucket, auth) => {
   const { accountId, apiUrl, authorizationToken } = await fetchOkJson(
     "https://api.backblazeb2.com/b2api/v2/b2_authorize_account",
     {
@@ -109,6 +110,10 @@ const getUploadPath = async (bucket, auth) => {
     }),
   });
 
+  return {apiUrl, authorizationToken, bucketId};
+}
+
+const getUploadPath = async (apiUrl, authorizationToken, bucketId) => {
   return { authorizationToken: uploadAuthorizationToken, uploadUrl } =
     await fetchOkJson(`${apiUrl}/b2api/v2/b2_get_upload_url`, {
       method: "POST",
@@ -122,20 +127,25 @@ const getUploadPath = async (bucket, auth) => {
     });
 }
 
-const uploadFile = async (filePath, output, authorizationToken, uploadUrl) => {
+const uploadFile = async (filePath, output, apiUrl, authorizationToken, bucketId, retry = 0) => {
   const body = await fs.readFile(filePath);
   const sha1 = crypto.createHash("sha1").update(body).digest("hex");
+  const options = await getUploadPath(apiUrl, authorizationToken, bucketId);
 
   let mimeType = mime.lookup(filePath);
-  const uploadResult = await fetchOkJson(uploadUrl, {
+  await fetchOkJson(options.uploadUrl, {
     method: "POST",
     body,
     headers: {
-      Authorization: authorizationToken,
+      Authorization: options.authorizationToken,
       "Content-Type": mimeType ? mimeType : "b2/x-auto",
       "X-Bz-Content-Sha1": sha1,
       "X-Bz-File-Name": encodeB2PathComponent(output),
     },
+  }, () => {
+    if(retry < 3) {
+      uploadFile(filePath, output, apiUrl, authorizationToken, bucketId, retry + 1);
+    }
   });
 
   console.log(`Uploaded "${filePath}" to "${output}"`)
@@ -149,8 +159,7 @@ const uploadFile = async (filePath, output, authorizationToken, uploadUrl) => {
   const fileOutput = core.getInput('file_output');
 
   const auth = `Basic ${Buffer.from([keyId, applicationKey].join(":")).toString("base64")}`;
-
-  const options = await getUploadPath(bucket, auth);
+  const {apiUrl, authorizationToken, bucketId} = await authorizeUpload(bucket, auth);
 
   const pathStat = await fs.lstat(fileInput);
   if(pathStat.isDirectory()){
@@ -160,11 +169,11 @@ const uploadFile = async (filePath, output, authorizationToken, uploadUrl) => {
       output = path.join(fileOutput, output);
       output = upath.toUnix(output);
 
-      await uploadFile(file, output, options.authorizationToken, options.uploadUrl);
+      uploadFile(file, output, apiUrl, authorizationToken, bucketId);
     }
     return true;
   }
 
-  await uploadFile(fileInput, upath.toUnix(fileOutput), options.authorizationToken, options.uploadUrl);
+  uploadFile(fileInput, upath.toUnix(fileOutput), apiUrl, authorizationToken, bucketId);
   return true;
 })().catch((err) => core.setFailed(err.message));
