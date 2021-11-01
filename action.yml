@@ -2,7 +2,7 @@ name: "Backblaze B2 Upload"
 description: "Upload a file to Backblaze B2"
 inputs:
   bucket:
-    description: "Name of bucket"
+    description: "Bucket ID"
     required: true
   file_output:
     description: "Upload destination key"

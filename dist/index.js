@@ -1011,17 +1011,17 @@ const encodeB2PathComponent = (raw) => {
     .join("");
 };
 
-const fetchOkJson = (url, { body, ...opts }, onFail) =>
+const fetchOkJson = (url, { body, ...opts }, onFail = false) =>
   new Promise((resolve, reject) => {
     const req = https.request(url, opts);
     req.on("error", () => {
-      onFail();
+      if(onFail) return onFail();
       return reject
     });
 
     req.on("response", (res) => {
       if (res.statusCode < 200 || res.statusCode > 299) {
-        if((res.statusCode >= 500 && res.statusCode <= 599) || res.statusCode == 408) onFail();
+        if(((res.statusCode >= 500 && res.statusCode <= 599) || res.statusCode == 408) && onFail) return onFail();
         return reject(new Error(`Request to ${url} failed with status ${res.statusCode}`));
       }
       const chunks = [];
@@ -1053,7 +1053,7 @@ const walkDir = async directory => {
   return fileList;
 }
 
-const authorizeUpload = async (bucket, auth) => {
+const authorizeUpload = async (auth) => {
   const { accountId, apiUrl, authorizationToken } = await fetchOkJson(
     "https://api.backblazeb2.com/b2api/v2/b2_authorize_account",
     {
@@ -1063,21 +1063,7 @@ const authorizeUpload = async (bucket, auth) => {
     }
   );
 
-  const {
-    buckets: [{ bucketId }],
-  } = await fetchOkJson(`${apiUrl}/b2api/v2/b2_list_buckets`, {
-    method: "POST",
-    headers: {
-      Authorization: authorizationToken,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      accountId,
-      bucketName: bucket,
-    }),
-  });
-
-  return {apiUrl, authorizationToken, bucketId};
+  return {apiUrl, authorizationToken};
 }
 
 const getUploadPath = async (apiUrl, authorizationToken, bucketId) => {
@@ -1126,7 +1112,7 @@ const uploadFile = async (filePath, output, apiUrl, authorizationToken, bucketId
   const fileOutput = core.getInput('file_output');
 
   const auth = `Basic ${Buffer.from([keyId, applicationKey].join(":")).toString("base64")}`;
-  const {apiUrl, authorizationToken, bucketId} = await authorizeUpload(bucket, auth);
+  const {apiUrl, authorizationToken} = await authorizeUpload(auth);
 
   const pathStat = await fs.lstat(fileInput);
   if(pathStat.isDirectory()){
@@ -1136,12 +1122,12 @@ const uploadFile = async (filePath, output, apiUrl, authorizationToken, bucketId
       output = path.join(fileOutput, output);
       output = upath.toUnix(output);
 
-      uploadFile(file, output, apiUrl, authorizationToken, bucketId);
+      uploadFile(file, output, apiUrl, authorizationToken, bucket);
     }
     return true;
   }
 
-  uploadFile(fileInput, upath.toUnix(fileOutput), apiUrl, authorizationToken, bucketId);
+  uploadFile(fileInput, upath.toUnix(fileOutput), apiUrl, authorizationToken, bucket);
   return true;
 })().catch((err) => core.setFailed(err.message));
 

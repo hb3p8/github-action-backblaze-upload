@@ -18,7 +18,7 @@ jobs:
         with:
           key_id: 'fnaufhaihfaifh'
           application_key: 'djsaifhasufgsaf'
-          bucket: 'bucket-name'
+          bucket: 'Bucket ID, not name'
           file_input: '/home/user/my/file/path.ext or C:\my\file\path.ext'
           file_output: 'some_folder_inside_root/some_subfolder/final_folder/file.ext'
 ```
