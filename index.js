@@ -156,11 +156,17 @@ const uploadFile = async (filePath, output, authorizationToken, uploadUrl) => {
 }
 
 (async () => {
-  const keyId = core.getInput('key_id');
-  const applicationKey = core.getInput('application_key');
-  const bucket = core.getInput('bucket');
-  const fileInput = core.getInput('file_input');
-  const fileOutput = core.getInput('file_output');
+  const keyId = '002bed47ada133e0000000004' // core.getInput('key_id');
+  const applicationKey = 'K0023FCAd3VoL0pErFyh5Ck7RMQmRog' // core.getInput('application_key');
+  const bucket = 'upb-dl' // core.getInput('bucket');
+  const fileInput = 'C:\\github-action-b2-upload\\dist\\index.js' // core.getInput('file_input');
+  const fileOutput = 'partial/1.0.0/index.js' // core.getInput('file_output');
+
+  // 002bed47ada133e0000000003
+  // K0029CaQ8HeE75xhAy9JZteS
+  // upb-dl
+  // C:\github-action-b2-upload\dist
+  // partial/1.0.0
 
   const auth = `Basic ${Buffer.from([keyId, applicationKey].join(":")).toString("base64")}`;
 
@@ -170,7 +176,7 @@ const uploadFile = async (filePath, output, authorizationToken, uploadUrl) => {
   if(pathStat.isDirectory()){
     const files = await walkDir(fileInput);
     for(let file of files){
-      output = path.relative(fileInput, file);
+      let output = path.relative(fileInput, file);
       output = path.join(fileOutput, output);
       output = upath.toUnix(output);
 
@@ -179,5 +185,5 @@ const uploadFile = async (filePath, output, authorizationToken, uploadUrl) => {
     return;
   }
 
-  await uploadFile(fileInput, output, options.authorizationToken, options.uploadUrl);
-})().catch((err) => core.setFailed(err.message));
+  await uploadFile(fileInput, upath.toUnix(fileOutput), options.authorizationToken, options.uploadUrl);
+})() // .catch((err) => core.setFailed(err.message));
