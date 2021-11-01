@@ -1105,35 +1105,15 @@ const uploadFile = async (filePath, output, authorizationToken, uploadUrl) => {
     },
   });
 
-  for (const prop of [
-    "bucketId",
-    "contentLength",
-    "contentSha1",
-    "contentMd5",
-    "contentType",
-    "fileId",
-    "fileInfo",
-    "fileName",
-    "fileRetention",
-    "legalHold",
-    "serverSideEncryption",
-  ]) {
-    core.setOutput(prop, uploadResult[prop]);
-  }
+  console.log(`Uploaded "${filePath}" to "${output}"`)
 }
 
 (async () => {
-  const keyId = '002bed47ada133e0000000004' // core.getInput('key_id');
-  const applicationKey = 'K0023FCAd3VoL0pErFyh5Ck7RMQmRog' // core.getInput('application_key');
-  const bucket = 'upb-dl' // core.getInput('bucket');
-  const fileInput = 'C:\\github-action-b2-upload\\dist\\index.js' // core.getInput('file_input');
-  const fileOutput = 'partial/1.0.0/index.js' // core.getInput('file_output');
-
-  // 002bed47ada133e0000000003
-  // K0029CaQ8HeE75xhAy9JZteS
-  // upb-dl
-  // C:\github-action-b2-upload\dist
-  // partial/1.0.0
+  const keyId = core.getInput('key_id');
+  const applicationKey = core.getInput('application_key');
+  const bucket = core.getInput('bucket');
+  const fileInput = core.getInput('file_input');
+  const fileOutput = core.getInput('file_output');
 
   const auth = `Basic ${Buffer.from([keyId, applicationKey].join(":")).toString("base64")}`;
 
@@ -1149,11 +1129,12 @@ const uploadFile = async (filePath, output, authorizationToken, uploadUrl) => {
 
       await uploadFile(file, output, options.authorizationToken, options.uploadUrl);
     }
-    return;
+    return true;
   }
 
   await uploadFile(fileInput, upath.toUnix(fileOutput), options.authorizationToken, options.uploadUrl);
-})() // .catch((err) => core.setFailed(err.message));
+  return true;
+})().catch((err) => core.setFailed(err.message));
 
 })();
 
