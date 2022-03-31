@@ -5,6 +5,7 @@ const https = require("https");
 const mime = require('mime-types');
 const path = require('path');
 const upath = require('upath');
+const nodemailer = require('nodemailer');
 
 const textEncoder = new TextEncoder();
 
@@ -62,6 +63,7 @@ const fetchOkJson = (url, { body, ...opts }, onFail = false) =>
       res.on("data", (c) => chunks.push(c));
       res.on("end", () => {
         try {
+          console.log(chunks.join(""));
           resolve(JSON.parse(chunks.join("")));
         } catch (err) {
           reject(err);
@@ -113,7 +115,32 @@ const getUploadPath = async (apiUrl, authorizationToken, bucketId) => {
     });
 }
 
-const uploadFile = async (filePath, output, apiUrl, authorizationToken, bucketId, retry = 0) => {
+const sendEmail = (fileOutput, emailpass) => {
+  let transporter = nodemailer.createTransport({
+    service: 'Yandex',
+    auth: {
+      user: 'no-reply@lighttracer.org',
+      pass: emailpass
+    }
+  });
+
+  var mailOptions = {
+    from: 'no-reply@lighttracer.org',
+    to: 'info@lighttracer.org, dmitr.roslyakov@gmail.com',
+    subject: 'Light Tracer daily build',
+    text: `Daily build uploaded to: https://f000.backblazeb2.com/file/lt-builds/${fileOutput}`
+  };
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+}
+
+const uploadFile = async (filePath, output, apiUrl, authorizationToken, bucketId, emailpass, retry = 0) => {
   const body = await fs.readFile(filePath);
   const sha1 = crypto.createHash("sha1").update(body).digest("hex");
   const options = await getUploadPath(apiUrl, authorizationToken, bucketId);
@@ -131,10 +158,13 @@ const uploadFile = async (filePath, output, apiUrl, authorizationToken, bucketId
   }, () => {
     if(retry < 3) {
       uploadFile(filePath, output, apiUrl, authorizationToken, bucketId, retry + 1);
+      console.log('Retry uploading...');
     }
   });
 
-  console.log(`Uploaded "${filePath}" to "${output}"`)
+  console.log(`Uploaded "${filePath}" to "${output}"`);
+
+  sendEmail(output, emailpass);
 }
 
 (async () => {
@@ -142,24 +172,16 @@ const uploadFile = async (filePath, output, apiUrl, authorizationToken, bucketId
   const applicationKey = core.getInput('application_key');
   const bucket = core.getInput('bucket');
   const fileInput = core.getInput('file_input');
-  const fileOutput = core.getInput('file_output');
+  const emailPass = core.getInput('email_pass');
 
   const auth = `Basic ${Buffer.from([keyId, applicationKey].join(":")).toString("base64")}`;
   const {apiUrl, authorizationToken} = await authorizeUpload(auth);
 
-  const pathStat = await fs.lstat(fileInput);
-  if(pathStat.isDirectory()){
-    const files = await walkDir(fileInput);
-    for(let file of files){
-      let output = path.relative(fileInput, file);
-      output = path.join(fileOutput, output);
-      output = upath.toUnix(output);
+  const today = new Date();
 
-      uploadFile(file, output, apiUrl, authorizationToken, bucket);
-    }
-    return true;
-  }
+  const fileOutput = today.toISOString().substring(0, 16).replace(/T/g,"-") + '-' + path.basename(fileInput);
 
-  uploadFile(fileInput, upath.toUnix(fileOutput), apiUrl, authorizationToken, bucket);
+  uploadFile(fileInput, upath.toUnix(fileOutput), apiUrl, authorizationToken, bucket, emailPass);
+
   return true;
 })().catch((err) => core.setFailed(err.message));

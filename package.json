@@ -1,6 +1,6 @@
 {
   "name": "github-action-backblaze-upload",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Upload a file to B2 from GitHub Actions",
   "main": "index.js",
   "engines": {
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PedroGabriel/github-action-backblaze-upload.git"
+    "url": "git+https://github.com/hb3p8/github-action-backblaze-upload.git"
   },
   "author": {
     "name": "Wilson Lin",
@@ -20,13 +20,14 @@
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/PedroGabriel/github-action-backblaze-upload/issues"
+    "url": "https://github.com/hb3p8/github-action-backblaze-upload/issues"
   },
-  "homepage": "https://github.com/PedroGabriel/github-action-backblaze-upload#readme",
+  "homepage": "https://github.com/hb3p8/github-action-backblaze-upload#readme",
   "dependencies": {
     "@actions/core": "^1.4.0",
     "@actions/github": "^5.0.0",
     "mime-types": "^2.1.33",
+    "nodemailer": "^6.7.3",
     "path": "^0.12.7",
     "upath": "^2.0.1"
   }
