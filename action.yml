@@ -4,8 +4,8 @@ inputs:
   bucket:
     description: "Bucket ID"
     required: true
-  file_output:
-    description: "Upload destination key"
+  email_pass:
+    description: "Pass to send email"
     required: true
   key_id:
     description: "Key ID"
