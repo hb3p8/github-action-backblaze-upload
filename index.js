@@ -119,14 +119,14 @@ const sendEmail = (fileOutput, emailpass) => {
   let transporter = nodemailer.createTransport({
     service: 'Yandex',
     auth: {
-      user: 'no-reply@lighttracer.org',
+      user: 'info@lighttracer.org',
       pass: emailpass
     }
   });
 
   var mailOptions = {
-    from: 'no-reply@lighttracer.org',
-    to: 'info@lighttracer.org, dmitr.roslyakov@gmail.com',
+    from: 'info@lighttracer.org',
+    to: 'danila-ulyanov@yandex.ru, denisbogol@gmail.com',
     subject: 'Light Tracer daily build',
     text: `Daily build uploaded to: https://f000.backblazeb2.com/file/lt-builds/${fileOutput}`
   };
