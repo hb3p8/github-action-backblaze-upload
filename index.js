@@ -6,7 +6,6 @@ const mime = require('mime-types');
 const path = require('path');
 const upath = require('upath');
 const nodemailer = require('nodemailer');
-const https = require('https');
 
 const textEncoder = new TextEncoder();
 

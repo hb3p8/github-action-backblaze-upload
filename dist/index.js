@@ -1,7 +1,7 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 6793:
+/***/ 253:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -28,7 +28,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.issue = exports.issueCommand = void 0;
 const os = __importStar(__nccwpck_require__(2037));
-const utils_1 = __nccwpck_require__(9545);
+const utils_1 = __nccwpck_require__(185);
 /**
  * Commands
  *
@@ -100,7 +100,7 @@ function escapeProperty(s) {
 
 /***/ }),
 
-/***/ 1074:
+/***/ 7078:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -135,9 +135,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getState = exports.saveState = exports.group = exports.endGroup = exports.startGroup = exports.info = exports.warning = exports.error = exports.debug = exports.isDebug = exports.setFailed = exports.setCommandEcho = exports.setOutput = exports.getBooleanInput = exports.getMultilineInput = exports.getInput = exports.addPath = exports.setSecret = exports.exportVariable = exports.ExitCode = void 0;
-const command_1 = __nccwpck_require__(6793);
-const file_command_1 = __nccwpck_require__(4916);
-const utils_1 = __nccwpck_require__(9545);
+const command_1 = __nccwpck_require__(253);
+const file_command_1 = __nccwpck_require__(5073);
+const utils_1 = __nccwpck_require__(185);
 const os = __importStar(__nccwpck_require__(2037));
 const path = __importStar(__nccwpck_require__(1017));
 /**
@@ -401,7 +401,7 @@ exports.getState = getState;
 
 /***/ }),
 
-/***/ 4916:
+/***/ 5073:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -432,7 +432,7 @@ exports.issueCommand = void 0;
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const fs = __importStar(__nccwpck_require__(7147));
 const os = __importStar(__nccwpck_require__(2037));
-const utils_1 = __nccwpck_require__(9545);
+const utils_1 = __nccwpck_require__(185);
 function issueCommand(command, message) {
     const filePath = process.env[`GITHUB_${command}`];
     if (!filePath) {
@@ -450,7 +450,7 @@ exports.issueCommand = issueCommand;
 
 /***/ }),
 
-/***/ 9545:
+/***/ 185:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -477,7 +477,7 @@ exports.toCommandValue = toCommandValue;
 
 /***/ }),
 
-/***/ 2084:
+/***/ 3057:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 /*!
@@ -495,7 +495,7 @@ module.exports = __nccwpck_require__(3765)
 
 /***/ }),
 
-/***/ 4065:
+/***/ 6483:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -513,7 +513,7 @@ module.exports = __nccwpck_require__(3765)
  * @private
  */
 
-var db = __nccwpck_require__(2084)
+var db = __nccwpck_require__(3057)
 var extname = (__nccwpck_require__(1017).extname)
 
 /**
@@ -691,7 +691,7 @@ function populateMaps (extensions, types) {
 
 /***/ }),
 
-/***/ 9548:
+/***/ 5804:
 /***/ ((module) => {
 
 "use strict";
@@ -1012,7 +1012,7 @@ module.exports = addressparser;
 
 /***/ }),
 
-/***/ 9465:
+/***/ 3885:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -1162,7 +1162,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 8170:
+/***/ 1163:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -1171,9 +1171,9 @@ module.exports = {
 // FIXME:
 // replace this Transform mess with a method that pipes input argument to output argument
 
-const MessageParser = __nccwpck_require__(5766);
-const RelaxedBody = __nccwpck_require__(781);
-const sign = __nccwpck_require__(7717);
+const MessageParser = __nccwpck_require__(7295);
+const RelaxedBody = __nccwpck_require__(5425);
+const sign = __nccwpck_require__(5678);
 const PassThrough = (__nccwpck_require__(2781).PassThrough);
 const fs = __nccwpck_require__(7147);
 const path = __nccwpck_require__(1017);
@@ -1421,7 +1421,7 @@ module.exports = DKIM;
 
 /***/ }),
 
-/***/ 5766:
+/***/ 7295:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -1584,7 +1584,7 @@ module.exports = MessageParser;
 
 /***/ }),
 
-/***/ 781:
+/***/ 5425:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -1746,14 +1746,14 @@ module.exports = RelaxedBody;
 
 /***/ }),
 
-/***/ 7717:
+/***/ 5678:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
 
 
 const punycode = __nccwpck_require__(5477);
-const mimeFuncs = __nccwpck_require__(9018);
+const mimeFuncs = __nccwpck_require__(5346);
 const crypto = __nccwpck_require__(6113);
 
 /**
@@ -1871,7 +1871,7 @@ function relaxedHeaderLine(line) {
 
 /***/ }),
 
-/***/ 4162:
+/***/ 2233:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2160,7 +2160,7 @@ module.exports = Cookies;
 
 /***/ }),
 
-/***/ 9648:
+/***/ 6665:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2171,7 +2171,7 @@ const https = __nccwpck_require__(5687);
 const urllib = __nccwpck_require__(7310);
 const zlib = __nccwpck_require__(9796);
 const PassThrough = (__nccwpck_require__(2781).PassThrough);
-const Cookies = __nccwpck_require__(4162);
+const Cookies = __nccwpck_require__(2233);
 const packageData = __nccwpck_require__(4129);
 
 const MAX_REDIRECTS = 5;
@@ -2437,14 +2437,14 @@ function fetch(url, options) {
 
 /***/ }),
 
-/***/ 5743:
+/***/ 2339:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
 
 
 const packageData = __nccwpck_require__(4129);
-const shared = __nccwpck_require__(1773);
+const shared = __nccwpck_require__(2974);
 
 /**
  * Generates a Transport object to generate JSON output
@@ -2527,7 +2527,7 @@ module.exports = JSONTransport;
 
 /***/ }),
 
-/***/ 3505:
+/***/ 2014:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2535,8 +2535,8 @@ module.exports = JSONTransport;
 
 
 
-const MimeNode = __nccwpck_require__(3314);
-const mimeFuncs = __nccwpck_require__(9018);
+const MimeNode = __nccwpck_require__(4686);
+const mimeFuncs = __nccwpck_require__(5346);
 
 /**
  * Creates the object for composing a MimeNode instance out from the mail options
@@ -3093,22 +3093,22 @@ module.exports = MailComposer;
 
 /***/ }),
 
-/***/ 9164:
+/***/ 2972:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
 
 
 const EventEmitter = __nccwpck_require__(2361);
-const shared = __nccwpck_require__(1773);
-const mimeTypes = __nccwpck_require__(342);
-const MailComposer = __nccwpck_require__(3505);
-const DKIM = __nccwpck_require__(8170);
-const httpProxyClient = __nccwpck_require__(7668);
+const shared = __nccwpck_require__(2974);
+const mimeTypes = __nccwpck_require__(5402);
+const MailComposer = __nccwpck_require__(2014);
+const DKIM = __nccwpck_require__(1163);
+const httpProxyClient = __nccwpck_require__(555);
 const util = __nccwpck_require__(3837);
 const urllib = __nccwpck_require__(7310);
 const packageData = __nccwpck_require__(4129);
-const MailMessage = __nccwpck_require__(6919);
+const MailMessage = __nccwpck_require__(3049);
 const net = __nccwpck_require__(1808);
 const dns = __nccwpck_require__(9523);
 const crypto = __nccwpck_require__(6113);
@@ -3528,15 +3528,15 @@ module.exports = Mail;
 
 /***/ }),
 
-/***/ 6919:
+/***/ 3049:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
 
 
-const shared = __nccwpck_require__(1773);
-const MimeNode = __nccwpck_require__(3314);
-const mimeFuncs = __nccwpck_require__(9018);
+const shared = __nccwpck_require__(2974);
+const MimeNode = __nccwpck_require__(4686);
+const mimeFuncs = __nccwpck_require__(5346);
 
 class MailMessage {
     constructor(mailer, data) {
@@ -3851,7 +3851,7 @@ module.exports = MailMessage;
 
 /***/ }),
 
-/***/ 9018:
+/***/ 5346:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -3859,9 +3859,9 @@ module.exports = MailMessage;
 
 
 
-const base64 = __nccwpck_require__(9465);
-const qp = __nccwpck_require__(7294);
-const mimeTypes = __nccwpck_require__(342);
+const base64 = __nccwpck_require__(3885);
+const qp = __nccwpck_require__(3901);
+const mimeTypes = __nccwpck_require__(5402);
 
 module.exports = {
     /**
@@ -4478,7 +4478,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 342:
+/***/ 5402:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -6588,7 +6588,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 3314:
+/***/ 4686:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -6601,17 +6601,17 @@ const os = __nccwpck_require__(2037);
 const fs = __nccwpck_require__(7147);
 const punycode = __nccwpck_require__(5477);
 const PassThrough = (__nccwpck_require__(2781).PassThrough);
-const shared = __nccwpck_require__(1773);
+const shared = __nccwpck_require__(2974);
 
-const mimeFuncs = __nccwpck_require__(9018);
-const qp = __nccwpck_require__(7294);
-const base64 = __nccwpck_require__(9465);
-const addressparser = __nccwpck_require__(9548);
-const fetch = __nccwpck_require__(9648);
-const LastNewline = __nccwpck_require__(9582);
+const mimeFuncs = __nccwpck_require__(5346);
+const qp = __nccwpck_require__(3901);
+const base64 = __nccwpck_require__(3885);
+const addressparser = __nccwpck_require__(5804);
+const fetch = __nccwpck_require__(6665);
+const LastNewline = __nccwpck_require__(7027);
 
-const LeWindows = __nccwpck_require__(317);
-const LeUnix = __nccwpck_require__(9205);
+const LeWindows = __nccwpck_require__(6309);
+const LeUnix = __nccwpck_require__(4370);
 
 /**
  * Creates a new mime tree node. Assumes 'multipart/*' as the content type
@@ -7887,7 +7887,7 @@ module.exports = MimeNode;
 
 /***/ }),
 
-/***/ 9582:
+/***/ 7027:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -7928,7 +7928,7 @@ module.exports = LastNewline;
 
 /***/ }),
 
-/***/ 9205:
+/***/ 4370:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -7979,7 +7979,7 @@ module.exports = LeWindows;
 
 /***/ }),
 
-/***/ 317:
+/***/ 6309:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -8039,21 +8039,21 @@ module.exports = LeWindows;
 
 /***/ }),
 
-/***/ 7637:
+/***/ 9841:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
 
 
-const Mailer = __nccwpck_require__(9164);
-const shared = __nccwpck_require__(1773);
-const SMTPPool = __nccwpck_require__(9477);
-const SMTPTransport = __nccwpck_require__(716);
-const SendmailTransport = __nccwpck_require__(3030);
-const StreamTransport = __nccwpck_require__(1019);
-const JSONTransport = __nccwpck_require__(5743);
-const SESTransport = __nccwpck_require__(2176);
-const fetch = __nccwpck_require__(9648);
+const Mailer = __nccwpck_require__(2972);
+const shared = __nccwpck_require__(2974);
+const SMTPPool = __nccwpck_require__(4163);
+const SMTPTransport = __nccwpck_require__(4975);
+const SendmailTransport = __nccwpck_require__(5592);
+const StreamTransport = __nccwpck_require__(1878);
+const JSONTransport = __nccwpck_require__(2339);
+const SESTransport = __nccwpck_require__(3790);
+const fetch = __nccwpck_require__(6665);
 const packageData = __nccwpck_require__(4129);
 
 const ETHEREAL_API = (process.env.ETHEREAL_API || 'https://api.nodemailer.com').replace(/\/+$/, '');
@@ -8190,7 +8190,7 @@ module.exports.getTestMessageUrl = function (info) {
 
 /***/ }),
 
-/***/ 7294:
+/***/ 3901:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -8417,7 +8417,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 3030:
+/***/ 5592:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -8425,7 +8425,7 @@ module.exports = {
 
 const spawn = (__nccwpck_require__(2081).spawn);
 const packageData = __nccwpck_require__(4129);
-const shared = __nccwpck_require__(1773);
+const shared = __nccwpck_require__(2974);
 
 /**
  * Generates a Transport object for Sendmail
@@ -8635,7 +8635,7 @@ module.exports = SendmailTransport;
 
 /***/ }),
 
-/***/ 2176:
+/***/ 3790:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -8643,8 +8643,8 @@ module.exports = SendmailTransport;
 
 const EventEmitter = __nccwpck_require__(2361);
 const packageData = __nccwpck_require__(4129);
-const shared = __nccwpck_require__(1773);
-const LeWindows = __nccwpck_require__(317);
+const shared = __nccwpck_require__(2974);
+const LeWindows = __nccwpck_require__(6309);
 
 /**
  * Generates a Transport object for AWS SES
@@ -8992,7 +8992,7 @@ module.exports = SESTransport;
 
 /***/ }),
 
-/***/ 1773:
+/***/ 2974:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -9003,7 +9003,7 @@ module.exports = SESTransport;
 const urllib = __nccwpck_require__(7310);
 const util = __nccwpck_require__(3837);
 const fs = __nccwpck_require__(7147);
-const fetch = __nccwpck_require__(9648);
+const fetch = __nccwpck_require__(6665);
 const dns = __nccwpck_require__(9523);
 const net = __nccwpck_require__(1808);
 const os = __nccwpck_require__(2037);
@@ -9604,7 +9604,7 @@ function createDefaultLogger(levels) {
 
 /***/ }),
 
-/***/ 6438:
+/***/ 2786:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -9720,7 +9720,7 @@ module.exports = DataStream;
 
 /***/ }),
 
-/***/ 7668:
+/***/ 555:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -9859,7 +9859,7 @@ module.exports = httpProxyClient;
 
 /***/ }),
 
-/***/ 1066:
+/***/ 4615:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -9871,9 +9871,9 @@ const net = __nccwpck_require__(1808);
 const tls = __nccwpck_require__(4404);
 const os = __nccwpck_require__(2037);
 const crypto = __nccwpck_require__(6113);
-const DataStream = __nccwpck_require__(6438);
+const DataStream = __nccwpck_require__(2786);
 const PassThrough = (__nccwpck_require__(2781).PassThrough);
-const shared = __nccwpck_require__(1773);
+const shared = __nccwpck_require__(2974);
 
 // default timeout values in ms
 const CONNECTION_TIMEOUT = 2 * 60 * 1000; // how much to wait for the connection to be established
@@ -11641,17 +11641,17 @@ module.exports = SMTPConnection;
 
 /***/ }),
 
-/***/ 9477:
+/***/ 4163:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
 
 
 const EventEmitter = __nccwpck_require__(2361);
-const PoolResource = __nccwpck_require__(7320);
-const SMTPConnection = __nccwpck_require__(1066);
-const wellKnown = __nccwpck_require__(3271);
-const shared = __nccwpck_require__(1773);
+const PoolResource = __nccwpck_require__(5378);
+const SMTPConnection = __nccwpck_require__(4615);
+const wellKnown = __nccwpck_require__(4285);
+const shared = __nccwpck_require__(2974);
 const packageData = __nccwpck_require__(4129);
 
 /**
@@ -12290,15 +12290,15 @@ module.exports = SMTPPool;
 
 /***/ }),
 
-/***/ 7320:
+/***/ 5378:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
 
 
-const SMTPConnection = __nccwpck_require__(1066);
-const assign = (__nccwpck_require__(1773).assign);
-const XOAuth2 = __nccwpck_require__(6470);
+const SMTPConnection = __nccwpck_require__(4615);
+const assign = (__nccwpck_require__(2974).assign);
+const XOAuth2 = __nccwpck_require__(6054);
 const EventEmitter = __nccwpck_require__(2361);
 
 /**
@@ -12551,17 +12551,17 @@ module.exports = PoolResource;
 
 /***/ }),
 
-/***/ 716:
+/***/ 4975:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
 
 
 const EventEmitter = __nccwpck_require__(2361);
-const SMTPConnection = __nccwpck_require__(1066);
-const wellKnown = __nccwpck_require__(3271);
-const shared = __nccwpck_require__(1773);
-const XOAuth2 = __nccwpck_require__(6470);
+const SMTPConnection = __nccwpck_require__(4615);
+const wellKnown = __nccwpck_require__(4285);
+const shared = __nccwpck_require__(2974);
+const XOAuth2 = __nccwpck_require__(6054);
 const packageData = __nccwpck_require__(4129);
 
 /**
@@ -12967,14 +12967,14 @@ module.exports = SMTPTransport;
 
 /***/ }),
 
-/***/ 1019:
+/***/ 1878:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
 
 
 const packageData = __nccwpck_require__(4129);
-const shared = __nccwpck_require__(1773);
+const shared = __nccwpck_require__(2974);
 
 /**
  * Generates a Transport object for streaming
@@ -13110,7 +13110,7 @@ module.exports = StreamTransport;
 
 /***/ }),
 
-/***/ 3271:
+/***/ 4285:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -13165,16 +13165,16 @@ module.exports = function (key) {
 
 /***/ }),
 
-/***/ 6470:
+/***/ 6054:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
 
 
 const Stream = (__nccwpck_require__(2781).Stream);
-const fetch = __nccwpck_require__(9648);
+const fetch = __nccwpck_require__(6665);
 const crypto = __nccwpck_require__(6113);
-const shared = __nccwpck_require__(1773);
+const shared = __nccwpck_require__(2974);
 
 /**
  * XOAUTH2 access_token generator for Gmail.
@@ -13549,7 +13549,7 @@ module.exports = XOAuth2;
 
 /***/ }),
 
-/***/ 1195:
+/***/ 1258:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 /**
@@ -13927,14 +13927,14 @@ module.exports = JSON.parse('{"name":"nodemailer","version":"6.7.3","description
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
-const core = __nccwpck_require__(1074);
+const core = __nccwpck_require__(7078);
 const crypto = __nccwpck_require__(6113);
 const fs = (__nccwpck_require__(7147).promises);
 const https = __nccwpck_require__(5687);
-const mime = __nccwpck_require__(4065);
+const mime = __nccwpck_require__(6483);
 const path = __nccwpck_require__(1017);
-const upath = __nccwpck_require__(1195);
-const nodemailer = __nccwpck_require__(7637);
+const upath = __nccwpck_require__(1258);
+const nodemailer = __nccwpck_require__(9841);
 
 const textEncoder = new TextEncoder();
 
@@ -14044,29 +14044,43 @@ const getUploadPath = async (apiUrl, authorizationToken, bucketId) => {
     });
 }
 
-const sendEmail = (fileOutput, emailpass) => {
-  let transporter = nodemailer.createTransport({
-    service: 'Yandex',
-    auth: {
-      user: 'no-reply@lighttracer.org',
-      pass: emailpass
-    }
+const sendMessage = (fileOutput, token) => {
+  const chatId = '-536245022';
+  const text = `Build is uploaded to: https://f000.backblazeb2.com/file/lt-builds/${fileOutput}`;
+
+  const url = `https://api.telegram.org/bot${token}/sendMessage`;
+
+  const data = JSON.stringify({
+    chat_id: chatId,
+    text: text
   });
 
-  var mailOptions = {
-    from: 'no-reply@lighttracer.org',
-    to: 'info@lighttracer.org, dmitr.roslyakov@gmail.com',
-    subject: 'Light Tracer daily build',
-    text: `Daily build uploaded to: https://f000.backblazeb2.com/file/lt-builds/${fileOutput}`
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': data.length
+    }
   };
 
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
+  const req = https.request(url, options, (res) => {
+    let data = '';
+
+    res.on('data', (chunk) => {
+      data += chunk;
+    });
+
+    res.on('end', () => {
+      console.log(JSON.parse(data));
+    });
   });
+
+  req.on('error', (e) => {
+    console.error(e);
+  });
+
+  req.write(data);
+  req.end();
 }
 
 const uploadFile = async (filePath, output, apiUrl, authorizationToken, bucketId, emailpass, retry = 0) => {
@@ -14093,7 +14107,7 @@ const uploadFile = async (filePath, output, apiUrl, authorizationToken, bucketId
 
   console.log(`Uploaded "${filePath}" to "${output}"`);
 
-  sendEmail(output, emailpass);
+  sendMessage(output, emailpass);
 }
 
 (async () => {
