@@ -6,6 +6,7 @@ const mime = require('mime-types');
 const path = require('path');
 const upath = require('upath');
 const nodemailer = require('nodemailer');
+const https = require('https');
 
 const textEncoder = new TextEncoder();
 
@@ -115,29 +116,43 @@ const getUploadPath = async (apiUrl, authorizationToken, bucketId) => {
     });
 }
 
-const sendEmail = (fileOutput, emailpass) => {
-  let transporter = nodemailer.createTransport({
-    service: 'Yandex',
-    auth: {
-      user: 'info@lighttracer.org',
-      pass: emailpass
-    }
+const sendMessage = (fileOutput, token) => {
+  const chatId = '-536245022';
+  const text = `Build is uploaded to: https://f000.backblazeb2.com/file/lt-builds/${fileOutput}`;
+
+  const url = `https://api.telegram.org/bot${token}/sendMessage`;
+
+  const data = JSON.stringify({
+    chat_id: chatId,
+    text: text
   });
 
-  var mailOptions = {
-    from: 'info@lighttracer.org',
-    to: 'danila-ulyanov@yandex.ru, denisbogol@gmail.com',
-    subject: 'Light Tracer daily build',
-    text: `Daily build uploaded to: https://f000.backblazeb2.com/file/lt-builds/${fileOutput}`
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': data.length
+    }
   };
 
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
+  const req = https.request(url, options, (res) => {
+    let data = '';
+
+    res.on('data', (chunk) => {
+      data += chunk;
+    });
+
+    res.on('end', () => {
+      console.log(JSON.parse(data));
+    });
   });
+
+  req.on('error', (e) => {
+    console.error(e);
+  });
+
+  req.write(data);
+  req.end();
 }
 
 const uploadFile = async (filePath, output, apiUrl, authorizationToken, bucketId, emailpass, retry = 0) => {
@@ -164,7 +179,7 @@ const uploadFile = async (filePath, output, apiUrl, authorizationToken, bucketId
 
   console.log(`Uploaded "${filePath}" to "${output}"`);
 
-  sendEmail(output, emailpass);
+  sendMessage(output, emailpass);
 }
 
 (async () => {
